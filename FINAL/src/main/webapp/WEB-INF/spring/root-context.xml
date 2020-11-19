@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!--  DataSource : DB와의 연결을 담당. -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/final?characterEncoding=UTF-8&amp;serverTimezone=UTC"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="tiger"></property>
+	</bean>
+	
+	<!-- SqlSessionFactory 객체: DB와의 연결과 SQL 실행에 대한 모든 것을 가진 가장 중요한 객체-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>
+	</bean>
+	
+	<!-- SqlSession (SqlSessionTemplate 객체)  -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
+	<bean name="multipartResolver" 
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10485760"/>
+	</bean>
+
+	<!-- google Class Bean설정 추가 -->
+	<!-- 클라이언트ID와 보안비밀 세팅 -->
+	<bean id="googleConnectionFactory"
+	  class="org.springframework.social.google.connect.GoogleConnectionFactory">
+	  <constructor-arg
+	    value="1001790183901-cb9d2bt84dqu3v7e0gfsg6rtjrpapdd7.apps.googleusercontent.com" />
+	  <constructor-arg value="JQKptU5Rh94iLgjluxBxvmSQ" />
+	</bean>
+	<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
+	<bean id="googleOAuth2Parameters"
+	  class="org.springframework.social.oauth2.OAuth2Parameters">
+	  <property name="scope"
+	    value="https://www.googleapis.com/auth/plus.login" />
+	  <property name="redirectUri"
+	    value="http://192.168.6.154:9090/final/oauth2callback" />
+	</bean>
+	
+	<bean id="qnaBoardDao" class="com.auction.dao.QnaBoardDaoImpl"></bean>
+	<bean id="commentDao" class="com.auction.dao.CommentDaoImpl"></bean>
+	<bean id="productDao" class="com.auction.dao.ProductDaoImpl"/>
+	<bean id="adminDao" class="com.auction.dao.AdminDaoImpl"/>
+	<bean id= "memberDao" class = "com.auction.dao.MemberDaoImpl"></bean>
+	<bean id="noticeDao" class="com.auction.dao.NoticeDaoImpl"/>
+	<bean id="chatRoom" class="com.auction.handler.ChatRoomRepository"/>
+	<bean id="naverLoginBo" class="com.auction.api.NaverLoginBo"/>
+	<bean id="paymentCheck" class="com.auction.api.PaymentCheck"/>
+	<bean id="kakaoApi" class="com.auction.api.KakaoApi"/>
+	<context:component-scan base-package="com.auction.service" />
+</beans>

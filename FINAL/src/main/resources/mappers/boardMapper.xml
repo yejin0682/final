@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.auction.mapper.QnaBoardMapper">
+ 	<insert id="writeBoard">
+ 		INSERT INTO qnaboard(title,content,ID) VALUES (#{title},#{content},#{ID})
+ 	</insert>
+ 	<select id="selectBoard" resultType="com.auction.vo.QnaBoardVo">
+ 		SELECT * FROM qnaboard ORDER BY qbno DESC LIMIT 10 OFFSET #{offset}
+ 	</select>
+ 	<select id="selectBoardAll" resultType="com.auction.vo.QnaBoardVo">
+ 		SELECT * FROM qnaboard ORDER BY qbno DESC
+ 	</select>
+ 	<select id="selectContent" resultType="com.auction.vo.QnaBoardVo">
+ 		SELECT * FROM qnaboard WHERE qbno=#{qbno}
+ 	</select>
+ 	<select id="selectFromId" resultType="com.auction.vo.QnaBoardVo">
+ 		SELECT * FROM qnaboard WHERE id=#{id}
+ 	</select>
+ 	<update id="updateHitcount">
+ 		UPDATE qnaboard SET hitcount=hitcount+1 WHERE qbno=#{qbno}
+ 	</update>
+ 	<select id="searchTitle" resultType="com.auction.vo.QnaBoardVo">
+ 		SELECT * FROM qnaboard WHERE title LIKE CONCAT('%', #{keyword},'%') ORDER BY qbno DESC LIMIT 10 OFFSET #{offset}
+ 	</select>
+ 	<select id="searchContent" resultType="com.auction.vo.QnaBoardVo">
+ 		SELECT * FROM qnaboard WHERE content LIKE CONCAT('%', #{keyword},'%') ORDER BY qbno DESC LIMIT 10 OFFSET #{offset}
+ 	</select>
+ 	<select id="searchWriter" resultType="com.auction.vo.QnaBoardVo">
+ 		SELECT * FROM qnaboard WHERE ID LIKE CONCAT('%', #{keyword},'%') ORDER BY qbno DESC LIMIT 10 OFFSET #{offset}
+ 	</select>
+ 	<select id="searchTitleAndContent" resultType="com.auction.vo.QnaBoardVo">
+ 		SELECT * FROM qnaboard WHERE title LIKE CONCAT('%', #{keyword},'%') OR content LIKE CONCAT('%', #{keyword},'%') ORDER BY qbno DESC LIMIT 10 OFFSET #{offset}
+ 	</select>
+ 	<select id="searchTitleSize" resultType="com.auction.vo.QnaBoardVo">
+ 		SELECT * FROM qnaboard WHERE title LIKE CONCAT('%', #{keyword},'%')
+ 	</select>
+ 	<select id="searchContentSize" resultType="com.auction.vo.QnaBoardVo">
+ 		SELECT * FROM qnaboard WHERE content LIKE CONCAT('%', #{keyword},'%')
+ 	</select>
+ 	<select id="searchWriterSize" resultType="com.auction.vo.QnaBoardVo">
+ 		SELECT * FROM qnaboard WHERE ID LIKE CONCAT('%', #{keyword},'%')
+ 	</select>
+ 	<select id="searchTitleAndContentSize" resultType="com.auction.vo.QnaBoardVo">
+ 		SELECT * FROM qnaboard WHERE title LIKE CONCAT('%', #{keyword},'%') OR content LIKE CONCAT('%', #{keyword},'%')
+ 	</select>
+ 	<delete id="deleteBoard">
+ 		DELETE FROM qnaboard WHERE qbno=#{qbno};
+ 	</delete>
+ 	<update id="updateBoard">
+ 		UPDATE qnaboard SET content=#{content} WHERE qbno=#{qbno}
+ 	</update>
+ </mapper>

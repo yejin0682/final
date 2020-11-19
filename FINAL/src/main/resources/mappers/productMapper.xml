@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.auction.mapper.ProductMapper">
+	
+	<!-- 등록 -->
+	<insert id="insertProduct">
+		INSERT INTO product(pname, image, filenames, price, deadlinedate, hitcount, ID, bestmoney, admin, category, auctionmenu, deal, timeout, startmoney, lastmoney, moneyup) VALUES(#{pname},#{image},#{filenames},#{price},#{deadlinedate},#{hitcount},#{ID},#{bestmoney},#{admin},#{category},#{auctionmenu},#{deal},#{timeout},#{startmoney},#{lastmoney},#{moneyup});
+	</insert>
+	
+	<!-- 전체 -->
+	<select id="selectAuction" resultType="com.auction.vo.ProductVo">
+		select * from product where auctionmenu='일반' and deal=1 and admin=1 order by uploaddate desc;
+	</select>
+
+	<select id="selectAuctionBlind" resultType="com.auction.vo.ProductVo">
+		select * from product where auctionmenu='블라인드' and deal=1 and admin=1 order by uploaddate desc;
+	</select>
+		
+	<select id="selectPop" resultType="com.auction.vo.ProductVo">
+		SELECT * FROM product where deal=1 and admin=1 order by hitcount desc;
+	</select>
+
+	<select id="selectHurry" resultType="com.auction.vo.ProductVo">
+		SELECT * from product where deal=1 and admin=1 order by (TIMESTAMPDIFF(day, NOW(), deadlinedate)+1) asc;
+	</select>
+	
+	<!-- 상세 -->
+	<select id="selectOne" resultType="com.auction.vo.ProductVo">
+		SELECT * FROM product where pno=#{pno};
+	</select>
+	<update id="hitcountUp">
+		update product set hitcount= hitcount+1 where pno=#{pno};
+	</update>
+	<update id="timeout">
+		update product set timeout=(TIMESTAMPDIFF(day, NOW(), deadlinedate)+1);
+	</update>
+	
+	<!-- 입찰 -->
+	<select id="showAuction" resultType="int">
+		SELECT count(*) FROM auction where pno=#{pno};	
+	</select>
+	<insert id="insertAuction">
+		insert into auction(ID, pno, myprice) values(#{ID}, #{pno}, #{myprice});
+	</insert>
+	<update id="updateMoneyFirst">
+		update product set count =count+1, bestmoney =bestmoney+startmoney, getcustomer=#{getcustomer} where pno=#{pno};
+	</update>
+	<update id="updateMoney">
+		update product set count =count+1, bestmoney =bestmoney+moneyup, getcustomer=#{getcustomer} where pno=#{pno};
+	</update>
+	<select id="rejectBlind" resultType="int">
+		select count(*) from auction a left outer join product p on a.pno=p.pno where a.ID=#{ID} and p.auctionmenu='블라인드' and a.pno=#{pno};
+	</select>
+
+	<update id="updateCount">
+		update product set count =count+1 where pno=#{pno};
+	</update>
+	<!-- 카테고리 -->
+	<select id="normalCategory" resultType="com.auction.vo.ProductVo">
+		select * from product where category=#{category} and auctionmenu='일반' and deal=1 and admin=1 order by uploaddate desc;
+	</select>
+	<select id="blindCategory" resultType="com.auction.vo.ProductVo">
+		SELECT * FROM product WHERE category=#{category} and auctionmenu='블라인드' and deal=1 and admin=1 ORDER BY uploaddate DESC;
+	</select>
+	
+	<!-- 마감 -->
+	<update id="dealChange">
+		update product set deal=2 where pno=#{pno};
+	</update>
+	
+	<!-- 
+	<select id="blindCharge" resultType="com.auction.vo.AuctionVo">
+		SELECT ID FROM final.auction WHERE pno=#{pno} and ABS(myprice-(SELECT price FROM product WHERE pno=#{pno})) order by buydate limit 1;
+	</select>
+	 -->
+	<update id="updateCustomer">
+		UPDATE product SET getcustomer=#{getcustomer} , bestmoney=#{bestmoney} WHERE pno =#{pno};
+	</update>
+	
+	<!-- 관심상품 -->
+	<update id="addLike">
+		update member set likeproduct=concat(likeproduct, #{likeproduct})  where ID=#{ID};
+	</update>
+	<select id="selectLike" resultType="String">
+		select likeproduct from member where ID=#{ID};
+	</select>
+
+	<!-- 검색기능 -->	
+	<select id = "searchProduct" resultType = "com.auction.vo.ProductVo">
+		SELECT * FROM product WHERE pname LIKE CONCAT('%', #{keyword},'%') ORDER BY pno desc;
+	</select>
+	
+	<!-- 마이페이지.구매 -->
+	<select id="auctionPno" resultType="int">
+		SELECT distinct pno from auction where id =#{ID}; 
+	</select>
+	<select id="maxPrice" resultType="com.auction.vo.AuctionVo">
+		select idx,p.pname, p.ID,a.pno,max(myprice) as myprice,buydate,p.payment,p.getcustomer,p.deal from auction a left outer join product p on p.pno=a.pno where a.pno=#{pno} and a.id=#{id};
+	</select>
+	<update id="payment">
+		UPDATE product SET payment=1 WHERE pno=#{pno};
+	</update>
+	
+	<!-- 판매 -->
+	<select id="selectSales" resultType="com.auction.vo.ProductVo">
+		SELECT * FROM final.product where ID=#{ID} order by uploaddate desc;
+	</select>
+</mapper>
+
+
+
+
+  

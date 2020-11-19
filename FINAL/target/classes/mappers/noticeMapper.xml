@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.auction.mapper.NoticeMapper">
+ 	<insert id="writeBoard">
+ 		INSERT INTO notice(title,content,ID) VALUES (#{title},#{content},#{ID})
+ 	</insert>
+ 	<select id="selectBoard" resultType="com.auction.vo.NoticeVo">
+ 		SELECT * FROM notice ORDER BY nbo DESC LIMIT 10 OFFSET #{offset}
+ 	</select>
+ 	<select id="selectBoardAll" resultType="com.auction.vo.NoticeVo">
+ 		SELECT * FROM notice ORDER BY nbo DESC
+ 	</select>
+ 	<select id="selectContent" resultType="com.auction.vo.NoticeVo">
+ 		SELECT * FROM notice WHERE nbo=#{nbo}
+ 	</select>
+ 	<!-- 
+ 	<update id="updateHitcount">
+ 		UPDATE notice SET hitcount=hitcount+1 WHERE nbo=#{nbo}
+ 	</update>
+ 	 -->
+ 	<select id="searchTitle" resultType="com.auction.vo.NoticeVo">
+ 		SELECT * FROM notice WHERE title LIKE CONCAT('%', #{keyword},'%') ORDER BY nbo DESC LIMIT 10 OFFSET #{offset}
+ 	</select>
+ 	<select id="searchContent" resultType="com.auction.vo.NoticeVo">
+ 		SELECT * FROM notice WHERE content LIKE CONCAT('%', #{keyword},'%') ORDER BY nbo DESC LIMIT 10 OFFSET #{offset}
+ 	</select>
+ 	<select id="searchWriter" resultType="com.auction.vo.NoticeVo">
+ 		SELECT * FROM notice WHERE ID LIKE CONCAT('%', #{keyword},'%') ORDER BY nbo DESC LIMIT 10 OFFSET #{offset}
+ 	</select>
+ 	<select id="searchTitleAndContent" resultType="com.auction.vo.NoticeVo">
+ 		SELECT * FROM notice WHERE title LIKE CONCAT('%', #{keyword},'%') OR content LIKE CONCAT('%', #{keyword},'%') ORDER BY nbo DESC LIMIT 10 OFFSET #{offset}
+ 	</select>
+ 	<select id="searchTitleSize" resultType="com.auction.vo.NoticeVo">
+ 		SELECT * FROM notice WHERE title LIKE CONCAT('%', #{keyword},'%')
+ 	</select>
+ 	<select id="searchContentSize" resultType="com.auction.vo.NoticeVo">
+ 		SELECT * FROM notice WHERE content LIKE CONCAT('%', #{keyword},'%')
+ 	</select>
+ 	<select id="searchWriterSize" resultType="com.auction.vo.NoticeVo">
+ 		SELECT * FROM notice WHERE ID LIKE CONCAT('%', #{keyword},'%')
+ 	</select>
+ 	<select id="searchTitleAndContentSize" resultType="com.auction.vo.NoticeVo">
+ 		SELECT * FROM notice WHERE title LIKE CONCAT('%', #{keyword},'%') OR content LIKE CONCAT('%', #{keyword},'%')
+ 	</select>
+ 	 
+ </mapper>

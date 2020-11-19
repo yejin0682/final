@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace = "com.auction.mapper.SignUpMapper">
+	<insert id = "insert"><!-- 회원가입 -->
+		INSERT INTO member(ID, pw, name, zonecode, addr, addrdetail, phonenum, email, birth) VALUES(#{ID},#{pw}, #{name}, #{zonecode}, #{addr}, #{addrdetail}, #{phonenum}, #{email}, #{birth})
+	</insert>
+	
+	<select id="login" resultType = "com.auction.vo.MemberVo"><!-- 로그인 -->
+		select * from member where ID = #{ID} and pw = #{pw}
+	</select>
+	
+	<update id="memberUpdate">
+		UPDATE member SET pw = #{pw}, name = #{name}, zonecode = #{zonecode}, addr = #{addr}, addrdetail = #{addrdetail}, phonenum = #{phonenum}, email = #{email} WHERE ID = #{ID}
+	</update>
+	
+	<select id="apiLogin" resultType="int">
+		SELECT count(*) FROM member WHERE id=#{id} AND api=#{api}
+	</select>
+	
+	<insert id ="insertApi">
+		INSERT INTO member(ID, pw, name, addr, phonenum, email, birth, grade,api) VALUES(#{ID},#{pw}, #{name}, #{addr}, #{phonenum}, #{email}, #{birth}, #{grade},#{api})
+	</insert>
+	<select id="loginApi" resultType="com.auction.vo.MemberVo">
+	
+	</select>
+	
+	<select id="IDcheck" resultType = "com.auction.vo.MemberVo">
+		select * from member where name = #{name} and email = #{email}
+	</select>
+	
+	<select id="PWcheck" resultType = "com.auction.vo.MemberVo">
+		select * from member where ID = #{ID} and name = #{name}
+	</select>
+	
+	<update id = "newPW">
+		UPDATE member SET pw = #{pw} WHERE ID = #{ID}
+	</update>
+	
+	<select id="sameId" resultType = "com.auction.vo.MemberVo">
+		SELECT * FROM member WHERE ID = #{ID}
+	</select>
+</mapper>
