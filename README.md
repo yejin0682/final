@@ -1,2 +1,1 @@
-# final
-tutorial repository
+경매 사이트를 구현했습니다. 피피티를 참고하시면서 봐주시면 감사하겠습니다.
