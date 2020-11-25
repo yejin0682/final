@@ -10,10 +10,10 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!--  DataSource : DB와의 연결을 담당. -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3306/final?characterEncoding=UTF-8&amp;serverTimezone=UTC"></property>
-		<property name="username" value="root"></property>
-		<property name="password" value="tiger"></property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/yejin0682?characterEncoding=UTF-8&amp;serverTimezone=UTC"></property>
+		<property name="username" value="yejin0682"></property>
+		<property name="password" value="yejin020811"></property>
 	</bean>
 	
 	<!-- SqlSessionFactory 객체: DB와의 연결과 SQL 실행에 대한 모든 것을 가진 가장 중요한 객체-->
@@ -47,7 +47,7 @@
 	  <property name="scope"
 	    value="https://www.googleapis.com/auth/plus.login" />
 	  <property name="redirectUri"
-	    value="http://192.168.6.154:9090/final/oauth2callback" />
+	    value="http://yejin0682.cafe24.com/oauth2callback" />
 	</bean>
 	
 	<bean id="qnaBoardDao" class="com.auction.dao.QnaBoardDaoImpl"></bean>
