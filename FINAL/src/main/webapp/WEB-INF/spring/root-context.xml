@@ -11,7 +11,7 @@
 	<!--  DataSource : DB와의 연결을 담당. -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3306/yejin0682?characterEncoding=UTF-8&amp;serverTimezone=UTC"></property>
+		<property name="url" value="jdbc:mysql://183.111.138.245:3306/yejin0682?characterEncoding=UTF-8&amp;serverTimezone=UTC"></property>
 		<property name="username" value="yejin0682"></property>
 		<property name="password" value="yejin020811"></property>
 	</bean>

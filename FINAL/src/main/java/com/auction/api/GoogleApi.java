@@ -27,7 +27,7 @@ public class GoogleApi {
 	        postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
 	        postParams.add(new BasicNameValuePair("client_id", "1001790183901-cb9d2bt84dqu3v7e0gfsg6rtjrpapdd7.apps.googleusercontent.com"));
 	        postParams.add(new BasicNameValuePair("client_secret", "JQKptU5Rh94iLgjluxBxvmSQ"));
-	        postParams.add(new BasicNameValuePair("redirect_uri", "http://192.168.6.154:9090/final/oauth2callback")); // 리다이렉트 URI
+	        postParams.add(new BasicNameValuePair("redirect_uri", "http://yejin0682.cafe24.com/oauth2callback")); // 리다이렉트 URI
 	        postParams.add(new BasicNameValuePair("code", autorize_code)); // 로그인 과정중 얻은 code 값
 	 
 	        final HttpClient client = HttpClientBuilder.create().build();
