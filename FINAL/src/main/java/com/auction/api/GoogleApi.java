@@ -57,7 +57,6 @@ public class GoogleApi {
 	        } finally {
 	            // clear resources
 	        }
-	 
 	        return returnNode;
 	 
 	    }

@@ -68,7 +68,7 @@ public class MemberHomeController {
                 + "&response_type=code" 
                 + "&state=security_token%3D138r5719ru3e1%26url%3Dhttps://oauth2.example.com/token" 
                 + "&client_id=" + "1001790183901-cb9d2bt84dqu3v7e0gfsg6rtjrpapdd7.apps.googleusercontent.com"
-                + "&redirect_uri=" + "http://localhost:9090/final/oauth2callback"
+                + "&redirect_uri=" + "http://yejin0682.cafe24.com/oauth2callback"
                 + "&access_type=offline";
 		
 		String naverAuthUrl = naverLoginBo.getAuthorizationUrl(session);

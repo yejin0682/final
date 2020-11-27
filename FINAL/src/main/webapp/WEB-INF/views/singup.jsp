@@ -60,7 +60,7 @@ $(function() {
 	  $("form").submit(function() {
 	  		var captcha = 1;
 	  		$.ajax({
-	              url: 'http://localhost:9090/final/rest/VerifyRecaptcha',
+	              url: 'http://yejin0682.cafe24.com/rest/VerifyRecaptcha',
 	              type: 'post',
 	              data: {
 	                  recaptcha: $("#g-recaptcha-response").val()
