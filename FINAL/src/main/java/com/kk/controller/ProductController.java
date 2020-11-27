@@ -50,16 +50,16 @@ public class ProductController {
 			MultipartFile multipart = arrMultipart[i];
 			String filename = "(이름없음)";
 			
-		if(!multipart.isEmpty()) {
-			filename = multipart.getOriginalFilename();
-			File file = new File(filePath, filename);
-			if(!file.exists())
-				file.mkdirs();
-			multipart.transferTo(file);
-		}
-		arrFilename[i] = filename;
-		str += arrFilename[i] += "_!_";
-		vo.setFilenames(str);
+			if(!multipart.isEmpty()) {
+				filename = multipart.getOriginalFilename();
+				File file = new File(filePath, filename);
+				if(!file.exists())
+					file.mkdirs();
+				multipart.transferTo(file);
+			}
+			arrFilename[i] = filename;
+			str += arrFilename[i] += "_!_";
+			vo.setFilenames(str);
 		}
 		
 
