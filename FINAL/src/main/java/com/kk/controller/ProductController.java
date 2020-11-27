@@ -92,7 +92,7 @@ public class ProductController {
 		}
 	}
 	
-	@RequestMapping(value="/")
+	@RequestMapping(value="/main")
 	public String main(Model model) {
 		List<ProductVo> showPop = service.selectPop();
 		List<ProductVo> showHurry = service.selectHurry();

@@ -33,10 +33,10 @@ public class HomeController {
 	@Autowired
 	MemberService mService;
 	
-//	@RequestMapping(value = "/", method = RequestMethod.GET)
-//	public String home(Locale locale, Model model) {
-//		return "test22";
-//	}
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		return "redirect:/main";
+	}
 //	@RequestMapping(value = "/mainpage")
 //	public String maainpage() {
 //		
