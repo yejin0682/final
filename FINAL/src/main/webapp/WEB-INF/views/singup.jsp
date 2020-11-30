@@ -182,7 +182,7 @@ $(".idCheck").click(function(){
 				alert("사용 불가능합니다. 다른 아이디를 입력하세요.");
 				$('#ID').val('');
 				$('#ID').focus();
-			}
+			}	
 
 			if(data == 0){
 				alert("사용 가능한 아이디 입니다.");

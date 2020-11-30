@@ -18,22 +18,22 @@
 
 	<!-- product -->
 	<select id="dealProduct" resultType="com.auction.vo.ProductVo">
-		select p.*, grade from product p left outer join member m on m.ID=p.ID where admin=#{admin} and deal=#{deal} order by uploaddate desc, grade asc;
+		select p.*, grade from product p left outer join member m on m.ID=p.ID where admin=#{admin} and deal=#{deal} order by uploaddate desc,pno desc;
 	</select>
 	<select id="dealProductPage" resultType="com.auction.vo.ProductVo">
-		select p.*, grade from product p left outer join member m on m.ID=p.ID where admin=#{admin} and deal=#{deal} order by uploaddate desc, grade asc LIMIT 10 OFFSET #{offset};
+		select p.*, grade from product p left outer join member m on m.ID=p.ID where admin=#{admin} and deal=#{deal} order by uploaddate desc,pno desc LIMIT 10 OFFSET #{offset};
 	</select>
 	<select id="adminProduct" resultType="com.auction.vo.ProductVo">
-		select p.*, grade from product p left outer join member m on m.ID=p.ID where admin=#{admin} order by uploaddate desc, grade asc;
+		select p.*, grade from product p left outer join member m on m.ID=p.ID where admin=#{admin} order by uploaddate desc,pno desc;
 	</select>
 	<select id="adminProductPage" resultType="com.auction.vo.ProductVo">
-		select p.*, grade from product p left outer join member m on m.ID=p.ID where admin=#{admin} order by uploaddate desc, grade asc LIMIT 10 OFFSET #{offset};
+		select p.*, grade from product p left outer join member m on m.ID=p.ID where admin=#{admin} order by uploaddate desc,pno desc LIMIT 10 OFFSET #{offset};
 	</select>
 	<select id="showProduct" resultType="com.auction.vo.ProductVo">
-		SELECT p.*, grade FROM product p left outer join member m on m.ID=p.ID order by uploaddate desc, grade asc;
+		SELECT p.*, grade FROM product p left outer join member m on m.ID=p.ID order by uploaddate desc,pno desc;
 	</select>
 	<select id="showProductPage" resultType="com.auction.vo.ProductVo">
-		SELECT p.*, grade FROM product p left outer join member m on m.ID=p.ID order by uploaddate desc, grade asc LIMIT 10 OFFSET #{offset} ;
+		SELECT p.*, grade FROM product p left outer join member m on m.ID=p.ID order by uploaddate desc,pno desc LIMIT 10 OFFSET #{offset} ;
 	</select>
 	<update id="updateAdmin">
 		update product set admin=#{admin}, deal=#{deal} where pno=#{pno};

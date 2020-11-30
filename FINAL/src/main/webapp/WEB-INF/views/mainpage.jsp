@@ -117,10 +117,14 @@ function make_time_str(index, Remain) {
    }
 //  console.log("days:"+days+",hours:"+hours+",minutes:"+minutes+",seconds:"+seconds);
    var m;
-   if(days<=1)
+   if(days<=1){
       m = hours + ":" +  minutes + ":" + seconds ;
-   else
+      if(seconds=="0-1"){
+			location.reload();
+          }
+	   }else{
       m = days; 
+		   }
   //document.all.timer.innerHTML = m;   
   return m;
   /* if (Remain <= 0) {      //시간 종료

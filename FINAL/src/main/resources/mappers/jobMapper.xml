@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace = "com.auction.mapper.JobMapper">
+	<update id="timeout">
+		UPDATE product SET timeout=(TIMESTAMPDIFF(day, NOW(), deadlinedate)+1);
+	</update>
+	<update id="dealNormal">
+		<![CDATA[ UPDATE product SET deal=IF(deadlinedate<=current_timestamp() or bestmoney >= lastmoney,2,1) where auctionmenu='일반';]]>
+	</update>
+	<update id="dealBlind">
+		<![CDATA[UPDATE product SET deal=IF(deadlinedate<=current_timestamp(),2,1) where auctionmenu='블라인드';]]>
+	</update>
+</mapper>
+
