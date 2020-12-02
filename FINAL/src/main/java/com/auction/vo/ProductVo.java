@@ -33,7 +33,6 @@ public class ProductVo {
 	private String getcustomer;
 	
 	public ProductVo() {}
-
 	
 	public ProductVo(int pno, int admin, int deal) {
 		this.pno = pno;
