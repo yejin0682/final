@@ -24,7 +24,7 @@
 	</select>
 
 	<select id="selectHurry" resultType="com.auction.vo.ProductVo">
-		SELECT * from product where deal=1 and admin=1 order by (TIMESTAMPDIFF(day, NOW(), deadlinedate)+1) asc;
+		SELECT * from product where deal=1 and admin=1 order by (TIMESTAMPDIFF(second, NOW(), deadlinedate)+1) asc;
 	</select>
 	
 	<!-- 상세 -->

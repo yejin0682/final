@@ -122,7 +122,7 @@ public class ProductDaoImpl implements ProductDao {
 		}else {
 			result = sqlSession.insert("com.auction.mapper.ProductMapper.insertAuction", vo);
 			sqlSession.update("com.auction.mapper.ProductMapper.updateCount", vo.getPno());
-			if(myDiff<diff) {
+			if(myDiff<diff || select==0) {
 				sqlSession.update("com.auction.mapper.ProductMapper.updateCustomer", map2);
 			}
 			
